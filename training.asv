@@ -1,0 +1,34 @@
+%Barengific
+
+function [numA]=training(I)
+%%%%%%%%Train using data
+load('carD/gTruth.mat');
+
+carrer = selectLabels(gTruth, 'car');
+
+trainingData = objectDetectorTrainingData(carrer,'SamplingFactor', 1,...
+'WriteLocation', 'train_data');
+
+acfDetector = trainACFObjectDetector(trainingData,'NumStages',8);
+save('carDetect.mat','acfDetector');
+
+%%
+%Load pre-trained data
+load('train_data/carDetect.mat');
+
+[bbox,score] = detect(acfDetector,I);
+%%
+%output results in figure
+for i = 1:length(score)
+        annotation = sprintf('red = %.1f',scorer(i));
+        I = insertObjectAnnotation(I,'rectangle',bbox(i,:),annotation);
+end
+figure
+imshow(I)
+%%
+[A,not1] = size(bbox);
+numA = int8(A);
+
+disp(strcat('blue2x4 = ',num2str(numA)));
+disp(strcat('red2x2 = ',num2str(numB)));
+end

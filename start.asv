@@ -1,0 +1,11 @@
+
+%Barengific
+
+%Input Test image
+I = imread('test/t1.jpg');
+I = imread('test/t2.jpg');
+I = imread('test/t3.jpg');
+I = imread('test/t4.jpg');
+
+%executes count_lego function & outputs blue2x4||red2x2 occurances
+[numA] = testModel(I);
